@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Zen Den · FAQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --sage:#c8d8c8;--sage-light:#e8f0e8;
+  --blush:#f0ddd8;--blush-mid:#e8c8c0;
+  --sky:#d0e0f0;--sky-light:#eaf2fb;
+  --lavender:#ddd0ee;--lav-light:#f0eaf8;
+  --sand:#ede8df;--cream:#faf8f4;--white:#fff;
+  --charcoal:#3a3530;--mid:#6b6258;--muted:#9a9088;
+  --border:rgba(100,90,80,0.12);
+  --fd:'DM Serif Display',Georgia,serif;
+  --fb:'Lato',sans-serif;
+  --nav-h:64px;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);color:var(--charcoal);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased;animation:pageFade .5s both}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--fb);cursor:pointer;border:none;background:none}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.5rem,5vw,4rem);background:rgba(250,248,244,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--fd);font-size:1.3rem;color:var(--charcoal);display:flex;align-items:center;gap:.5rem}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--blush-mid);display:inline-block}
+.nav-links{display:flex;gap:clamp(1.2rem,3vw,2.5rem);list-style:none}
+.nav-links a{font-size:.8rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);padding-bottom:2px;border-bottom:1.5px solid transparent;transition:color .25s,border-color .25s}
+.nav-links a:hover,.nav-links a.active{color:var(--charcoal);border-color:var(--blush-mid)}
+.nav-burger{display:none;flex-direction:column;gap:5px;padding:6px}
+.nav-burger span{display:block;width:22px;height:1.5px;background:var(--charcoal)}
+@media(max-width:700px){.nav-links{display:none}.nav-burger{display:flex}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--cream);padding:1.5rem 2rem 2rem;border-bottom:1px solid var(--border);gap:1.2rem;z-index:99}.nav-links.open a{font-size:1rem}}
+
+/* SECTIONS */
+.page{padding-top:var(--nav-h)}
+.sec{padding:clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,6rem)}
+.sec-inner{max-width:760px;margin:0 auto}
+.sec--hero{text-align:center;padding-top:clamp(5rem,10vw,9rem);padding-bottom:clamp(3rem,5vw,4rem)}
+.sec--blush{background:radial-gradient(ellipse 90% 80% at 10% 50%,rgba(240,221,216,.40) 0%,transparent 65%),radial-gradient(ellipse 70% 70% at 90% 30%,rgba(200,216,200,.30) 0%,transparent 60%),var(--cream)}
+.sec--sky{background:radial-gradient(ellipse 80% 80% at 80% 50%,rgba(208,224,240,.40) 0%,transparent 65%),radial-gradient(ellipse 60% 60% at 20% 60%,rgba(221,208,238,.30) 0%,transparent 60%),var(--cream)}
+.sec--lav{background:radial-gradient(ellipse 90% 80% at 50% 50%,rgba(221,208,238,.38) 0%,transparent 65%),var(--cream)}
+
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.sec-title{font-family:var(--fd);font-size:clamp(2rem,5vw,3.8rem);font-weight:400;line-height:1.12;color:var(--charcoal);margin-bottom:1.4rem}
+.sec-title em{font-style:italic;color:var(--mid)}
+.sec-body{font-size:clamp(.95rem,1.5vw,1.05rem);color:var(--mid);font-weight:300;line-height:1.85}
+.sec-sub{font-size:clamp(1rem,2vw,1.12rem);font-weight:300;line-height:1.8;color:var(--mid)}
+
+/* DETAILS / FAQ */
+.faq-group{margin-bottom:.5rem}
+.faq-group-title{font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin:2.8rem 0 1.2rem}
+.faq-list{display:flex;flex-direction:column;gap:.8rem}
+
+details{border-radius:18px;background:var(--white);border:1px solid var(--border);overflow:hidden}
+details[open]{background:var(--sky-light)}
+summary{padding:1.3rem 1.6rem;font-family:var(--fd);font-size:clamp(1rem,2vw,1.18rem);font-weight:400;color:var(--charcoal);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-size:1.4rem;font-weight:300;color:var(--muted);flex-shrink:0;transition:transform .3s var(--ease),color .2s;line-height:1}
+details[open] summary::after{transform:rotate(45deg);color:var(--charcoal)}
+.faq-ans{padding:0 1.6rem 1.5rem;font-size:.95rem;color:var(--mid);font-weight:300;line-height:1.85}
+
+/* CTA */
+.cta-link{display:inline-block;padding:.9rem 2.5rem;border-radius:999px;background:var(--charcoal);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;transition:background .3s}
+.cta-link:hover{background:var(--mid)}
+
+/* FOOTER */
+footer{padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem);text-align:center;border-top:1px solid var(--border);background:var(--cream)}
+.foot-name{font-family:var(--fd);font-size:1.1rem;color:var(--charcoal);margin-bottom:.5rem}
+.foot-copy{font-size:.78rem;color:var(--muted);font-weight:300;letter-spacing:.06em}
+
+@keyframes pageFade{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><span class="nav-dot"></span>The Zen Den</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">The Breath</a></li>
+    <li><a href="path.html">The Path</a></li>
+    <li><a href="faq.html" class="active">FAQ</a></li>
+    <li><a href="connect.html">Connect</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main class="page">
+
+  <section class="sec sec--hero">
+    <div class="sec-inner" style="max-width:600px">
+      <p class="eyebrow">Questions & Answers</p>
+      <h1 class="sec-title" style="font-size:clamp(2.6rem,7vw,5rem)"><em>Gently</em> answered</h1>
+      <p class="sec-sub">It's completely normal to have questions before reaching out. Here are the ones we hear most often.</p>
+    </div>
+  </section>
+
+  <section class="sec sec--blush">
+    <div class="sec-inner">
+      <p class="faq-group-title" style="margin-top:0">Getting Started</p>
+      <div class="faq-list">
+        <details>
+          <summary>I've never been to therapy before. Where do I begin?</summary>
+          <div class="faq-ans">Beginning is the hardest part, and you've already started by being here. The first step is simply reaching out. We offer a free 20-minute consultation so you can ask questions, share a little about what's been on your mind, and see if this feels like the right fit. No commitment, no pressure. Just a conversation.</div>
+        </details>
+        <details>
+          <summary>How do I know if I need therapy?</summary>
+          <div class="faq-ans">You don't need to be in crisis to benefit from therapy. Many people come because they want to understand themselves better, navigate a life change, manage low-level anxiety, or simply have a dedicated space to think out loud. If something has been weighing on you, even something you can't quite name, therapy can help.</div>
+        </details>
+        <details>
+          <summary>What happens in the first session?</summary>
+          <div class="faq-ans">The first session is mostly a chance for us to listen. We'll ask about what brought you in, a bit about your background, and what you're hoping to get from therapy. There's no agenda to rush through, the pace is entirely yours. You won't be asked to share anything you're not ready for.</div>
+        </details>
+        <details>
+          <summary>How long does therapy usually take?</summary>
+          <div class="faq-ans">This varies enormously from person to person. Some people find that 8–12 sessions gives them what they need. Others prefer ongoing support for months or years. We won't keep you in therapy longer than is helpful, and you can always pause or end sessions whenever you choose.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--sky">
+    <div class="sec-inner">
+      <p class="faq-group-title" style="margin-top:0">About Sessions</p>
+      <div class="faq-list">
+        <details>
+          <summary>Are sessions in person or online?</summary>
+          <div class="faq-ans">We offer both. In-person sessions are available at our practice, and online sessions are held via a secure, private video platform. Many clients find online therapy just as effective, and often more convenient, especially if you're managing a busy schedule or prefer the comfort of your own home.</div>
+        </details>
+        <details>
+          <summary>How long is each session?</summary>
+          <div class="faq-ans">Standard sessions are 50 minutes. We also offer 80-minute extended sessions for more in-depth work or EMDR processing. When you book, you can choose the format that suits you best.</div>
+        </details>
+        <details>
+          <summary>Is everything I share confidential?</summary>
+          <div class="faq-ans">Yes, what you share stays in the room (or on the call). Confidentiality is fundamental to the therapeutic relationship. The only exceptions are situations where we have a duty of care,  for example, if there is immediate risk of serious harm to you or someone else. We will always discuss this with you openly.</div>
+        </details>
+        <details>
+          <summary>What if I find a session upsetting?</summary>
+          <div class="faq-ans">Sometimes therapy stirs up feelings and that's not a sign something has gone wrong. We always leave space at the end of each session to help you settle. If you ever feel overwhelmed between sessions, you're welcome to send a message and we will respond as soon as possible.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--lav">
+    <div class="sec-inner">
+      <p class="faq-group-title" style="margin-top:0">Practicalities</p>
+      <div class="faq-list">
+        <details>
+          <summary>How much does therapy cost?</summary>
+          <div class="faq-ans">Sessions are $120 for 50 minutes and $170 for 80 minutes. A limited number of reduced-fee places are available for those experiencing financial hardship, please mention this when you get in touch and we will do our best to accommodate.</div>
+        </details>
+        <details>
+          <summary>Do you accept insurance?</summary>
+          <div class="faq-ans">We are out-of-network providers. Many insurance plans will reimburse a portion of therapy costs, we can provide a superbill (itemised receipt) to submit to your insurer. Contact your provider to check your out-of-network mental health benefits before booking.</div>
+        </details>
+        <details>
+          <summary>What is your cancellation policy?</summary>
+          <div class="faq-ans">Life happens, we understand. We ask for at least 24 hours' notice if you need to cancel or reschedule. Late cancellations or missed appointments are charged at 50% of the session fee. Emergencies are always treated with compassion and common sense.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="sec" style="text-align:center;padding-top:3.5rem;padding-bottom:5rem">
+    <p class="sec-body" style="margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto;font-size:1rem;color:var(--mid)">Still have a question? We are happy to answer it personally.</p>
+    <a href="connect.html" class="cta-link">Get in Touch</a>
+  </section>
+
+</main>
+
+<footer>
+  <p class="foot-name">The Zen Den · Our's Therapy Practice</p>
+  <p class="foot-copy">© 2025 · All sessions are confidential · Licensed Counselor</p>
+</footer>
+<script>document.getElementById('burger').onclick=()=>document.getElementById('navLinks').classList.toggle('open')</script>
+</body>
+</html>
