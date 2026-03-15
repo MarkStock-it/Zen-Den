@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Zen Den · The Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --sage:#c8d8c8;--sage-light:#e8f0e8;
+  --blush:#f0ddd8;--blush-mid:#e8c8c0;
+  --sky:#d0e0f0;--sky-light:#eaf2fb;
+  --lavender:#ddd0ee;--lav-light:#f0eaf8;
+  --sand:#ede8df;--cream:#faf8f4;--white:#fff;
+  --charcoal:#3a3530;--mid:#6b6258;--muted:#9a9088;
+  --border:rgba(100,90,80,0.12);
+  --fd:'DM Serif Display',Georgia,serif;
+  --fb:'Lato',sans-serif;
+  --nav-h:64px;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);color:var(--charcoal);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased;animation:pageFade .5s both}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--fb);cursor:pointer;border:none;background:none}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.5rem,5vw,4rem);background:rgba(250,248,244,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--fd);font-size:1.3rem;color:var(--charcoal);display:flex;align-items:center;gap:.5rem}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--blush-mid);display:inline-block}
+.nav-links{display:flex;gap:clamp(1.2rem,3vw,2.5rem);list-style:none}
+.nav-links a{font-size:.8rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);padding-bottom:2px;border-bottom:1.5px solid transparent;transition:color .25s,border-color .25s}
+.nav-links a:hover,.nav-links a.active{color:var(--charcoal);border-color:var(--blush-mid)}
+.nav-burger{display:none;flex-direction:column;gap:5px;padding:6px}
+.nav-burger span{display:block;width:22px;height:1.5px;background:var(--charcoal)}
+@media(max-width:700px){.nav-links{display:none}.nav-burger{display:flex}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--cream);padding:1.5rem 2rem 2rem;border-bottom:1px solid var(--border);gap:1.2rem;z-index:99}.nav-links.open a{font-size:1rem}}
+
+/* SECTIONS */
+.page{padding-top:var(--nav-h)}
+.sec{padding:clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,6rem)}
+.sec-inner{max-width:860px;margin:0 auto}
+.sec--hero{text-align:center;padding-top:clamp(5rem,10vw,9rem);padding-bottom:clamp(3rem,6vw,5rem)}
+.sec--blush{background:radial-gradient(ellipse 90% 80% at 10% 50%,rgba(240,221,216,.40) 0%,transparent 65%),radial-gradient(ellipse 70% 70% at 90% 30%,rgba(200,216,200,.30) 0%,transparent 60%),var(--cream)}
+.sec--sky{background:radial-gradient(ellipse 80% 80% at 80% 50%,rgba(208,224,240,.40) 0%,transparent 65%),radial-gradient(ellipse 60% 60% at 20% 60%,rgba(221,208,238,.30) 0%,transparent 60%),var(--cream)}
+.sec--lav{background:radial-gradient(ellipse 90% 80% at 50% 50%,rgba(221,208,238,.38) 0%,transparent 65%),var(--cream)}
+
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.sec-title{font-family:var(--fd);font-size:clamp(2rem,5vw,3.8rem);font-weight:400;line-height:1.12;color:var(--charcoal);margin-bottom:1.6rem}
+.sec-title em{font-style:italic;color:var(--mid)}
+.sec-body{font-size:clamp(.95rem,1.5vw,1.05rem);color:var(--mid);font-weight:300;line-height:1.85}
+.sec-body+.sec-body{margin-top:1.2rem}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:clamp(1rem,2.5vw,1.8rem);margin-top:2.8rem}
+.card{background:var(--white);border-radius:20px;padding:clamp(1.6rem,3vw,2.2rem);border:1px solid var(--border);transition:transform .3s var(--ease)}
+.card:hover{transform:translateY(-3px)}
+.card-icon{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.1rem;background:var(--sage-light)}
+.card:nth-child(2) .card-icon{background:var(--blush)}
+.card:nth-child(3) .card-icon{background:var(--sky-light)}
+.card:nth-child(4) .card-icon{background:var(--lav-light)}
+.card-tag{display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:var(--sand);color:var(--mid);padding:.15rem .6rem;border-radius:999px;margin-bottom:.8rem}
+.card-title{font-family:var(--fd);font-size:1.3rem;font-weight:400;color:var(--charcoal);margin-bottom:.6rem}
+.card-body{font-size:.88rem;color:var(--mid);font-weight:300;line-height:1.8}
+
+/* CTA */
+.cta-link{display:inline-block;padding:.9rem 2.5rem;border-radius:999px;background:var(--charcoal);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;transition:background .3s}
+.cta-link:hover{background:var(--mid)}
+
+/* FOOTER */
+footer{padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem);text-align:center;border-top:1px solid var(--border);background:var(--cream)}
+.foot-name{font-family:var(--fd);font-size:1.1rem;color:var(--charcoal);margin-bottom:.5rem}
+.foot-copy{font-size:.78rem;color:var(--muted);font-weight:300;letter-spacing:.06em}
+
+@keyframes pageFade{from{opacity:0}to{opacity:1}}
+@media(max-width:540px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><span class="nav-dot"></span>The Zen Den</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">The Breath</a></li>
+    <li><a href="path.html" class="active">The Path</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="connect.html">Connect</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main class="page">
+
+  <section class="sec sec--hero">
+    <div class="sec-inner" style="max-width:640px">
+      <p class="eyebrow">Your Journey</p>
+      <h1 class="sec-title" style="font-size:clamp(2.6rem,7vw,5rem)">Finding <em>your path</em><br>forward</h1>
+      <p class="sec-body">Therapy isn't one-size-fits-all. We draw from several evidence-based approaches, choosing what fits <em>you</em>, not the other way around.</p>
+    </div>
+  </section>
+
+
+  <section class="sec sec--blush">
+    <div class="sec-inner">
+      <p class="eyebrow">Cognitive Behavioural Therapy</p>
+      <h2 class="sec-title">Changing how you <em>think</em></h2>
+      <p class="sec-body">CBT is one of the most widely studied forms of therapy in the world. It's based on a powerful insight: the way we think shapes how we feel, and how we feel shapes what we do.</p>
+      <p class="sec-body">In sessions, we gently identify thought patterns that may be keeping you stuck, all-or-nothing thinking, catastrophising, or self-blame, then work to reshape them into more balanced, compassionate perspectives.</p>
+      <p class="sec-body">CBT is particularly effective for anxiety, depression, OCD, phobias, and stress. Sessions are structured and collaborative,  you are always an equal partner.</p>
+      <div class="cards">
+        <div class="card"><div class="card-icon">🧠</div><h3 class="card-title">Identify patterns</h3><p class="card-body">Recognise the automatic thoughts that trigger distress, often without you even noticing.</p></div>
+        <div class="card"><div class="card-icon">🔍</div><h3 class="card-title">Challenge gently</h3><p class="card-body">Examine the evidence for and against those thoughts and not to dismiss them, but to see clearly.</p></div>
+        <div class="card"><div class="card-icon">🌿</div><h3 class="card-title">Build new habits</h3><p class="card-body">Practice different responses until they feel natural, a new relationship with your own mind.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--sky">
+    <div class="sec-inner">
+      <p class="eyebrow">Dialectical Behaviour Therapy</p>
+      <h2 class="sec-title">Holding two truths <em>at once</em></h2>
+      <p class="sec-body">DBT was developed for people who experience emotions very intensely, but its tools are useful for almost anyone. The core idea is the "dialectic": two things can be true at once. You can accept yourself exactly as you are, <em>and</em> still want to grow.</p>
+      <p class="sec-body">DBT teaches four key skill sets: mindfulness (staying present), distress tolerance (surviving difficult moments), emotion regulation (understanding your feelings), and interpersonal effectiveness (communicating your needs clearly).</p>
+      <div class="cards">
+        <div class="card"><div class="card-icon">🌊</div><span class="card-tag">Mindfulness</span><h3 class="card-title">Presence</h3><p class="card-body">Observing your thoughts and feelings without judgement, the skill that underpins all others.</p></div>
+        <div class="card"><div class="card-icon">🛟</div><span class="card-tag">Distress Tolerance</span><h3 class="card-title">Resilience</h3><p class="card-body">Riding out crisis moments without reacting in ways that create new problems.</p></div>
+        <div class="card"><div class="card-icon">💬</div><span class="card-tag">Interpersonal</span><h3 class="card-title">Connection</h3><p class="card-body">Asking for what you need clearly and kindly, while respecting yourself and others.</p></div>
+        <div class="card"><div class="card-icon">☁️</div><span class="card-tag">Emotion Regulation</span><h3 class="card-title">Balance</h3><p class="card-body">Understanding the cycle of emotions and reducing vulnerability to intense emotional swings.</p></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="sec sec--lav">
+    <div class="sec-inner">
+      <p class="eyebrow">Mindfulness-Based Therapy</p>
+      <h2 class="sec-title">Returning to the <em>present</em></h2>
+      <p class="sec-body">Much of our suffering comes from living in the past (rumination) or the future (anxiety). Mindfulness-based approaches teach you to gently anchor your attention to the here and now.</p>
+      <p class="sec-body">You don't need to meditate for hours. Even small, intentional pauses throughout your day can profoundly shift your relationship with stress, low mood, and the constant pull of a busy mind.</p>
+    </div>
+  </section>
+
+
+  <section class="sec" style="text-align:center;padding-top:4rem;padding-bottom:5rem">
+    <p class="sec-body" style="margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto">Not sure which approach is right for you? That's completely normal,  it's exactly what a first session is for.</p>
+    <a href="connect.html" class="cta-link">Book a Free Consultation</a>
+  </section>
+
+</main>
+
+<footer>
+  <p class="foot-name">The Zen Den · Our Therapy Practice</p>
+  <p class="foot-copy">© 2025 · All sessions are confidential · Licensed Counselor</p>
+</footer>
+<script>document.getElementById('burger').onclick=()=>document.getElementById('navLinks').classList.toggle('open')</script>
+</body>
+</html>
