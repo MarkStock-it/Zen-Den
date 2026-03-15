@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Zen Den · The Breath</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --sage:#c8d8c8;--sage-light:#e8f0e8;
+  --blush:#f0ddd8;--blush-mid:#e8c8c0;
+  --sky:#d0e0f0;--sky-light:#eaf2fb;
+  --lavender:#ddd0ee;--lav-light:#f0eaf8;
+  --sand:#ede8df;--cream:#faf8f4;--white:#fff;
+  --charcoal:#3a3530;--mid:#6b6258;--muted:#9a9088;
+  --border:rgba(100,90,80,0.12);
+  --fd:'DM Serif Display',Georgia,serif;
+  --fb:'Lato',sans-serif;
+  --nav-h:64px;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);color:var(--charcoal);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased;animation:pageFade .5s both}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--fb);cursor:pointer;border:none;background:none}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.5rem,5vw,4rem);background:rgba(250,248,244,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--fd);font-size:1.3rem;color:var(--charcoal);display:flex;align-items:center;gap:.5rem}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--blush-mid);display:inline-block}
+.nav-links{display:flex;gap:clamp(1.2rem,3vw,2.5rem);list-style:none}
+.nav-links a{font-size:.8rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);padding-bottom:2px;border-bottom:1.5px solid transparent;transition:color .25s,border-color .25s}
+.nav-links a:hover,.nav-links a.active{color:var(--charcoal);border-color:var(--blush-mid)}
+.nav-burger{display:none;flex-direction:column;gap:5px;padding:6px}
+.nav-burger span{display:block;width:22px;height:1.5px;background:var(--charcoal);transition:transform .3s,opacity .3s}
+@media(max-width:700px){.nav-links{display:none}.nav-burger{display:flex}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--cream);padding:1.5rem 2rem 2rem;border-bottom:1px solid var(--border);gap:1.2rem;z-index:99}.nav-links.open a{font-size:1rem}}
+
+/* HERO */
+.hero{min-height:calc(100vh - var(--nav-h));margin-top:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(3rem,8vw,6rem) clamp(1.5rem,5vw,4rem);position:relative;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 20% 30%,rgba(200,216,200,.45) 0%,transparent 65%),radial-gradient(ellipse 70% 70% at 80% 70%,rgba(240,221,216,.40) 0%,transparent 65%),radial-gradient(ellipse 60% 50% at 50% 10%,rgba(208,224,240,.35) 0%,transparent 60%),var(--cream)}
+.hero-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:1.4rem;opacity:0;animation:softUp .8s .1s var(--ease) forwards}
+.hero-title{font-family:var(--fd);font-size:clamp(2.8rem,7vw,5.5rem);font-weight:400;line-height:1.1;color:var(--charcoal);margin-bottom:1.4rem;opacity:0;animation:softUp .9s .25s var(--ease) forwards}
+.hero-title em{font-style:italic;color:var(--mid)}
+.hero-sub{font-size:clamp(1rem,2vw,1.15rem);color:var(--mid);max-width:480px;margin:0 auto 3rem;font-weight:300;opacity:0;animation:softUp .8s .4s var(--ease) forwards}
+
+/* BREATHE WIDGET */
+.breathe-wrap{display:flex;flex-direction:column;align-items:center;gap:1.8rem;opacity:0;animation:softUp .8s .55s var(--ease) forwards}
+.breathe-container{position:relative;width:clamp(180px,38vw,260px);height:clamp(180px,38vw,260px);display:flex;align-items:center;justify-content:center}
+.breathe-orbit{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(100,90,80,.10)}
+.breathe-arc{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.arc-track{fill:none;stroke:rgba(180,165,150,.18);stroke-width:2}
+.arc-fill{fill:none;stroke:var(--blush-mid);stroke-width:2.5;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.breathe-circle{width:52%;height:52%;border-radius:50%;background:radial-gradient(circle at 38% 32%,rgba(200,216,200,.95) 0%,rgba(208,224,240,.75) 50%,rgba(221,208,238,.60) 100%);position:relative;z-index:2}
+.breathe-label{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;user-select:none}
+.breathe-phase{font-family:var(--fd);font-style:italic;font-size:clamp(.75rem,2vw,.92rem);color:var(--charcoal);opacity:.85}
+.breathe-count{font-size:clamp(1.4rem,4vw,2rem);font-weight:300;color:var(--charcoal);line-height:1;margin-top:.15rem}
+
+/* breathe states */
+.is-inhale .breathe-circle{animation:doInhale var(--inhale-dur,4s) cubic-bezier(.4,0,.2,1) forwards}
+.is-exhale .breathe-circle{animation:doExhale var(--exhale-dur,6s) cubic-bezier(.4,0,.2,1) forwards}
+.is-hold   .breathe-circle{animation:doHold 1.2s ease-in-out infinite}
+
+/* button */
+.breathe-btn{padding:.8rem 2.2rem;border-radius:var(--radius-pill,999px);background:var(--sand);border:1.5px solid var(--border);color:var(--charcoal);font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;transition:background .3s;display:flex;flex-direction:column;align-items:center;gap:.2rem}
+.breathe-btn:hover{background:var(--blush)}
+.breathe-btn.active{background:var(--sage-light)}
+.breathe-sub{font-size:.65rem;font-weight:400;letter-spacing:.06em;text-transform:none;color:var(--muted);min-height:.9rem}
+
+/* INTRO SECTION */
+.intro{padding:clamp(4rem,8vw,7rem) clamp(1.5rem,5vw,4rem);max-width:760px;margin:0 auto;background:radial-gradient(ellipse 90% 80% at 10% 50%,rgba(240,221,216,.40) 0%,transparent 65%),radial-gradient(ellipse 70% 70% at 90% 30%,rgba(200,216,200,.30) 0%,transparent 60%),var(--cream)}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.sec-title{font-family:var(--fd);font-size:clamp(2rem,4.5vw,3.4rem);font-weight:400;line-height:1.15;color:var(--charcoal);margin-bottom:1.6rem}
+.sec-title em{font-style:italic;color:var(--mid)}
+.sec-body{font-size:clamp(.95rem,1.5vw,1.05rem);color:var(--mid);font-weight:300;line-height:1.85}
+.sec-body+.sec-body{margin-top:1.2rem}
+
+/* FOOTER */
+footer{padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem);text-align:center;border-top:1px solid var(--border);background:var(--cream)}
+.foot-name{font-family:var(--fd);font-size:1.1rem;color:var(--charcoal);margin-bottom:.5rem}
+.foot-copy{font-size:.78rem;color:var(--muted);font-weight:300;letter-spacing:.06em}
+
+/* KEYFRAMES */
+@keyframes softUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pageFade{from{opacity:0}to{opacity:1}}
+@keyframes doInhale{from{transform:scale(1)}to{transform:scale(1.68)}}
+@keyframes doExhale{from{transform:scale(1.68)}to{transform:scale(1)}}
+@keyframes doHold{0%,100%{transform:scale(1.68);opacity:1}50%{transform:scale(1.68);opacity:.82}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><span class="nav-dot"></span>The Zen Den</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">The Breath</a></li>
+    <li><a href="path.html">The Path</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="connect.html">Connect</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <section class="hero">
+    <p class="hero-eyebrow">Welcome · A safe space</p>
+    <h1 class="hero-title">Every breath<br>is a <em>fresh start</em></h1>
+    <p class="hero-sub">Take a moment. Slow down. This is your space to simply be. Let's begin with a gentle breath together.</p>
+
+    <div class="breathe-wrap">
+      <div class="breathe-container" id="bc">
+        <svg class="breathe-arc" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+          <circle class="arc-track" cx="130" cy="130" r="124"/>
+          <circle class="arc-fill" id="arcFill" cx="130" cy="130" r="124"
+            stroke-dasharray="779" stroke-dashoffset="779"
+            transform="rotate(-90 130 130)"/>
+        </svg>
+        <div class="breathe-orbit"></div>
+        <div class="breathe-circle" id="bCircle"></div>
+        <div class="breathe-label">
+          <span class="breathe-phase" id="bPhase">breathe</span>
+          <span class="breathe-count" id="bCount"></span>
+        </div>
+      </div>
+      <button class="breathe-btn" id="bBtn">
+        <span id="bBtnText">Begin</span>
+        <span class="breathe-sub" id="bSub"></span>
+      </button>
+    </div>
+  </section>
+
+  <section class="intro">
+    <p class="eyebrow">About Us</p>
+    <h2 class="sec-title">You deserve to feel <em>at ease</em></h2>
+    <p class="sec-body">Hi, We are a licensed counselor with over a decade of experience helping people navigate anxiety, grief, burnout, and life transitions. My approach is gentle, evidence-based, and deeply human.</p>
+    <p class="sec-body">This space was built to feel like a long exhale. No clinical coldness, no overwhelming information,  just warmth, clarity, and a door that's always open.</p>
+  </section>
+</main>
+
+<footer>
+  <p class="foot-name">The Zen Den · Our Therapy Practice</p>
+  <p class="foot-copy">© 2025 · All sessions are confidential · Licensed Counselor</p>
+</footer>
+
+<script>
+document.getElementById('burger').onclick = () =>
+  document.getElementById('navLinks').classList.toggle('open');
+
+const PHASES=[
+  {name:'Inhale',dur:4,cls:'is-inhale'},
+  {name:'Hold',  dur:4,cls:'is-hold'},
+  {name:'Exhale',dur:6,cls:'is-exhale'},
+  {name:'Rest',  dur:2,cls:'is-hold'},
+];
+const CYCLE=16, CYCLES=4, SESSION=64;
+const ARC=779;
+
+const bc=document.getElementById('bc'),
+      bCircle=document.getElementById('bCircle'),
+      bPhase=document.getElementById('bPhase'),
+      bCount=document.getElementById('bCount'),
+      bBtn=document.getElementById('bBtn'),
+      bBtnText=document.getElementById('bBtnText'),
+      bSub=document.getElementById('bSub'),
+      arcFill=document.getElementById('arcFill');
+
+let running=false,ticker=null,pIdx=0,pLeft=0,sLeft=0;
+
+function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function setArc(){arcFill.style.strokeDashoffset=ARC*(1-sLeft/SESSION)}
+function setPhase(){
+  bc.classList.remove('is-inhale','is-exhale','is-hold');
+  const p=PHASES[pIdx];
+  if(p.cls==='is-inhale') bCircle.style.setProperty('--inhale-dur',p.dur+'s');
+  if(p.cls==='is-exhale') bCircle.style.setProperty('--exhale-dur',p.dur+'s');
+  void bCircle.offsetWidth;
+  bc.classList.add(p.cls);
+  bPhase.textContent=p.name;
+}
+function tick(){
+  pLeft--; sLeft=Math.max(0,sLeft-1);
+  bCount.textContent=pLeft>0?pLeft:'';
+  bSub.textContent=sLeft>0?fmt(sLeft)+' remaining':'';
+  setArc();
+  if(sLeft<=0){finish();return}
+  if(pLeft<=0){pIdx=(pIdx+1)%PHASES.length;pLeft=PHASES[pIdx].dur;setPhase()}
+}
+function start(){
+  running=true;pIdx=0;pLeft=PHASES[0].dur;sLeft=SESSION;
+  arcFill.style.strokeDashoffset=0; setArc(); setPhase();
+  bCount.textContent=pLeft; bBtnText.textContent='Pause';
+  bBtn.classList.add('active');
+  bSub.textContent=fmt(sLeft)+' remaining';
+  ticker=setInterval(tick,1000);
+}
+function stop(){
+  running=false;clearInterval(ticker);
+  bc.classList.remove('is-inhale','is-exhale','is-hold');
+  void bCircle.offsetWidth;
+  arcFill.style.strokeDashoffset=ARC;
+  bPhase.textContent='breathe';bCount.textContent='';
+  bSub.textContent='';bBtnText.textContent='Begin';
+  bBtn.classList.remove('active');
+}
+function finish(){
+  running=false;clearInterval(ticker);
+  bc.classList.remove('is-inhale','is-exhale','is-hold');
+  void bCircle.offsetWidth;
+  arcFill.style.strokeDashoffset=ARC;
+  bPhase.textContent='well done';bCount.textContent='✦';
+  bSub.textContent='Session complete';bBtnText.textContent='Begin Again';
+  bBtn.classList.remove('active');
+}
+bBtn.onclick=()=>running?stop():start();
+</script>
+</body>
+</html>
